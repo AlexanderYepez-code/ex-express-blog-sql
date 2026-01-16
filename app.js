@@ -6,7 +6,7 @@ import verificaPercorso from "./middlewares/verificapercorso.js";
 const app = express();
 const port = 3000;
 
-app.use(verificaPercorso);
+
 
 app.get("/", (req, resp) =>{
     resp.json(posts)
@@ -16,7 +16,7 @@ app.use(express.static("public"));
 app.use(express.json());
 
 
-app.use("/games", gamesRouter);
+app.use("/posts", gamesRouter);
 
 
 app.listen(port, function(){

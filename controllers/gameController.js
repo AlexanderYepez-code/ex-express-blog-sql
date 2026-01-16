@@ -1,24 +1,46 @@
 import  posts  from "../data/post.js"
+import connection from "../data/db.js";
 
 function index(req, res) {
-    const risposta = {
-        count: posts.length,
-        results: posts
-    }
-    res.json(risposta)
+    const query = "SELECT * FROM `posts`"
+    connection.query(query,(err, result) => {
+        if(err){
+            res.status(500);
+            return res.json({
+                message: "internal server error"
+            });
+        }
+
+        res.json({
+            results : result
+        })
+    })
+
+
 };
 
 function show(req, res) {
-    const id = parseInt(req.params.id);
-    const game = posts.find(game => game.id === id);
+    const id = req.params.id;
+    const query = "SELECT * FROM `posts` WHERE `posts`.`id`= ?";
+    connection.query(query, [id], (err, result) => {
+        if(err){
+            res.status(500);
+            return res.json({
+                message: "error server"
+            })
 
-    if (game === undefined) {
-        res.status(404);
-        return res.json({
-            message: "Gioco non a disposizione",
-        })
-    }
-    res.json(game)
+        }
+        if(result.length === 0){
+            res.status(404);
+            res.json({
+                message: "post non trovato",
+            });
+
+        }else{
+            const pizza = result[0];
+            res.json(pizza)
+        }
+    })
 
 }
 

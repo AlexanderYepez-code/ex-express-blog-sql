@@ -8,19 +8,19 @@ const router = express.Router();
 
 //INDEX
 
-router.get("/",verificaId, gameController.index)
+router.get("/", gameController.index)
 //SHOW
-router.get("/:id",verificaId, gameController.show)
+router.get("/:id", gameController.show)
 
 //STORE
-router.post("/",verificaId, gameController.store)
+router.post("/",gameController.store)
 
 //UPDATE
-router.put("/:id",verificaId, gameController.update)
+router.put("/:id", gameController.update)
 //MODIFY
-router.patch("/:id",verificaId, gameController.modify)
+router.patch("/:id", gameController.modify)
 //DESTROY
-router.delete("/:id",verificaId, gameController.destroy)
+router.delete("/:id", gameController.destroy)
 
 export default router;
 
